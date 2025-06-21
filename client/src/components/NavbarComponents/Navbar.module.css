@@ -22,9 +22,10 @@
   width: 55px;     
   height: auto;    
   margin-right: 8px; 
-  transform: rotate(90deg);
+  transform: rotate(8deg);
   position: absolute;
-  left: 8rem;
+  left: 8.2rem;
+  top: 1rem;
 
   
  
@@ -38,13 +39,126 @@
 }
 
 .navLinks a {
+  
+  display: flex;
+  align-items: center;
+  gap: 6px; /* Space between icon and text */
   color: white;
   text-decoration: none;
   font-weight: 500;
+  transition: background-color 0.3s ease;
+  padding: 4px 8px;
+  border-radius: 4px;
+
+ 
 }
 
+.ups{
+  display: flex;
+  align-items: center;
+ list-style: none;
+ gap: 1.5rem ;
+   transition: background-color 0.3s ease;
+
+
+
+}
+
+.ups a{
+     color: white;
+     font-size: 1.5rem;
+}
+
+.ups a:hover {
+  color: black;
+  background-color: #f8d7da;
+  padding: 3px;
+  border-radius: 50%;
+}
+
+
 .navLinks a:hover {
-  color: #61dafb;
+  color: black;
+  background-color: #f8d7da;
   
 }
 
+
+@media screen and (max-width: 1024px) {
+  .navbar {
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 1rem;
+  }
+
+  .navLinks,
+  .ups {
+    width: 100%;
+    justify-content: flex-start;
+    flex-wrap: wrap;
+    gap: 1rem;
+    margin-top: 1rem;
+  }
+
+  .navLinks a {
+    width: 100%;
+    padding: 8px;
+  }
+}
+
+/* ---------- Tablets (≤ 768px) ---------- */
+@media screen and (max-width: 768px) {
+  .logo img {
+    width: 45px;
+  }
+
+  .logo li {
+    font-size: 1.3rem;
+  }
+
+  .navLinks {
+    flex-direction: column;
+  }
+
+  .navLinks a {
+    font-size: 1rem;
+  }
+
+  .ups {
+    justify-content: center;
+    gap: 1.2rem;
+  }
+}
+
+/* ---------- Phones (≤ 480px) ---------- */
+@media screen and (max-width: 480px) {
+  .navbar {
+    align-items: center;
+  }
+
+  .logo {
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+  }
+
+  .logo li {
+    font-size: 1.2rem;
+  }
+
+  .navLinks,
+  .ups {
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+  }
+
+  .navLinks a {
+    font-size: 0.95rem;
+    padding: 6px 10px;
+  }
+
+  .ups a {
+    font-size: 1.2rem;
+  }
+}
