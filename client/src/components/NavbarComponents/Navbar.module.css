@@ -5,6 +5,7 @@
   padding: 1rem 2rem;
   background-color: var(--primary-color-30);
   color: white;
+ 
 }
 
 .logo {
@@ -83,6 +84,9 @@
   
 }
 
+.menu{
+  display: none;
+}
 
 @media screen and (max-width: 1024px) {
   .navbar {
@@ -106,19 +110,49 @@
   }
 }
 
-/* ---------- Tablets (≤ 768px) ---------- */
+/* ---------- Tablets (≤ 768px) ----------
 @media screen and (max-width: 768px) {
   .logo img {
-    width: 45px;
+    position: absolute;
+    left: 6rem;
+    width: 30px;
   }
+
+  .navbar{
+    width: 100vw;
+
+  }
+
+  .navbar .logoname{
+    font-size: 1.2rem;
+    
+  }
+  .navLinks{
+    display: initial;
+      transform: scale(0);
+    opacity: 0;
+    transform-origin: top right;
+    transition: none;
+  }
+
+  .ups{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: absolute;
+    left: 10rem;
+   width: 30rem;
+    top: 0;
+ 
+
+  }
+
 
   .logo li {
     font-size: 1.3rem;
   }
 
-  .navLinks {
-    flex-direction: column;
-  }
+
 
   .navLinks a {
     font-size: 1rem;
@@ -127,13 +161,120 @@
   .ups {
     justify-content: center;
     gap: 1.2rem;
+    
+  
+   
+  }
+
+  .ups li{
+      position: relative;
+    left: 35%;
+  }
+
+  .menu{
+    display: initial;
+    
+  }
+
+  .navLinks{
+    position: absolute;
+    left: 30.5rem;
+    top: 3rem;
+    background-color: var(--primary-color-30);
+    border-radius: 1rem;
+    width: 10rem;
+    
+ 
+   
+
+  }
+
+.navLinks a{
+  display: block;
+}
+
+} */
+
+/* ---------- Tablets (≤ 768px) ---------- */
+@media screen and (max-width: 768px) {
+
+  .navbar {
+    width: 100vw;
+    position: relative;
+  }
+
+  .logo img {
+    position: absolute;
+    left: 6rem;
+    width: 30px;
+  }
+
+  .logo li {
+    font-size: 1.3rem;
+  }
+
+  .logoname {
+    font-size: 1.2rem;
+  }
+
+  .navLinks {
+    position: absolute;
+    top: 3rem;
+    right: 1rem;
+    background-color: var(--primary-color-30);
+    border-radius: 1rem;
+    width: 10rem;
+    flex-direction: column;
+    transform: scale(0);
+    opacity: 0;
+    transform-origin: top right;
+    transition: transform 0.3s ease, opacity 0.3s ease;
+    z-index: 1000;
+  }
+
+  .showMenu {
+    transform: scale(1);
+    opacity: 1;
+  }
+
+  .navLinks li a {
+    display: block;
+    font-size: 1rem;
+    padding: 0.5rem 0;
+    color: white; /* fallback color if var is not defined */
+    text-decoration: none;
+  }
+
+  .ups {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 1.2rem;
+    position: absolute;
+    top: 0;
+    left: 10rem;
+    width: 30rem;
+  }
+
+  .ups li {
+    position: relative;
+    left: 35%;
+  }
+
+  .menu {
+    display: block;
+    cursor: pointer;
   }
 }
+
+
 
 /* ---------- Phones (≤ 480px) ---------- */
 @media screen and (max-width: 480px) {
   .navbar {
     align-items: center;
+
+ 
   }
 
   .logo {
