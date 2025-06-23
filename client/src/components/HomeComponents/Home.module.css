@@ -1,0 +1,88 @@
+.HomeComponent {
+  width: 100vw;
+  height: 100vh;
+  overflow: hidden;
+
+}
+
+.HomeComponentwrapper {
+  width: 100%;
+  height: 100%;
+
+}
+
+.sliders {
+    
+  width: 100%;
+  height: 100%;
+}
+
+.slideImage {
+  width: 100%;
+  height: 10%;
+  object-fit: cover;
+  display: block;
+  z-index: 1;
+}
+:global(.swiper-pagination) {
+
+
+  height: 25%;
+}
+
+
+
+:global(.swiper-pagination-bullet) {
+  background-color: white;
+  opacity: 1;
+}
+
+:global(.swiper-pagination-bullet-active) {
+  background-color: red;
+}
+.homeText {
+  width: 35%;
+  background: rgba(255, 255, 255, 0.85); /* semi-transparent white */
+  backdrop-filter: blur(8px);            /* glass effect */
+  padding: 2rem;
+  border-radius: 1rem;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+  position: absolute;
+  top: 35%;
+  right: 5%;
+  z-index: 9;
+  color: #222;
+  font-family: 'Segoe UI', sans-serif;
+  transition: all 0.3s ease;
+}
+
+.homeText h1 {
+  font-size: 2.5rem;
+  margin-bottom: 1rem;
+  color: #05445E; /* deep blue for trust */
+}
+
+.homeText p {
+  font-size: 1rem;
+  line-height: 1.6;
+  color: #333;
+}
+
+.orderButton {
+  display: inline-block;
+  margin-top: 1.5rem;
+  padding: 0.75rem 1.5rem;
+  background-color: #189AB4; /* medium blue */
+  color: white;
+  text-decoration: none;
+  border-radius: 8px;
+  font-weight: 600;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+  box-shadow: 0 3px 10px rgba(0, 0, 0, 0.15);
+}
+
+.orderButton:hover {
+  background-color: #05445E; /* darker blue */
+  transform: translateY(-2px);
+}
+

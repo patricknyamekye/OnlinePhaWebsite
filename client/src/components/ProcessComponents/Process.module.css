@@ -1,0 +1,12 @@
+.processContainer{
+    position: absolute;
+   top: 60rem;
+bottom: 0;
+
+
+    background-color: red;
+}
+
+.processContainer h1{
+    font-size: 20px;
+}

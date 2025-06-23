@@ -1,12 +1,15 @@
 .navbar {
+position: fixed;
+width: 100%;
+  z-index: 9999; /* Ensure it stays on top of other elements */
   display: flex;
   justify-content: space-between;
   align-items: center;
   padding: 1rem 2rem;
   background-color: var(--primary-color-30);
   color: white;
- 
 }
+
 
 .logo {
   font-size: 1.5rem;
@@ -59,7 +62,10 @@
   align-items: center;
  list-style: none;
  gap: 1.5rem ;
-   transition: background-color 0.3s ease;
+  transition: background-color 0.3s ease;
+  position: relative;
+    left: -4rem ;
+
 
 
 
@@ -87,6 +93,14 @@
 .menu{
   display: none;
 }
+
+
+
+
+
+
+
+
 
 @media screen and (max-width: 1024px) {
   .navbar {
