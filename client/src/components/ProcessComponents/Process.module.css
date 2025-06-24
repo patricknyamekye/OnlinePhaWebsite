@@ -2,13 +2,20 @@
 
 width: inherit;
   position: absolute;
-  top: 60rem;
+  top: 90vh;
   bottom: 0;
+  
+
 }
 
 .processContainerWrapper{
     display: flex;
     justify-content: center;
+   
+
+clip-path: polygon(0 40%, 100% 20%, 100% 100%, 0 83%);
+
+
 
     
 }
