@@ -72,6 +72,8 @@ const HomeComponent = () => {
     </Swiper>
 
       </div>
+      <br />
+
 
  
       <ProcessComponents/>
