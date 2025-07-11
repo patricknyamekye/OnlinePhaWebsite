@@ -1,0 +1,9 @@
+.advertContainer{
+    position: absolute;
+    top: 140vh;
+    left: 2vh;
+    width: 100%;
+    height: 45vh;
+    background-color: red;
+
+}

@@ -5,6 +5,7 @@ import { FaSignInAlt } from "react-icons/fa";
 import { FaCartPlus } from "react-icons/fa";
 import { MdPayments } from "react-icons/md";
 
+
 const ProcessComponents = () => {
   return (
     <div className={styles.processContainer}>
@@ -44,20 +45,25 @@ const ProcessComponents = () => {
 <div className={styles.cards}>
   <span><MdPayments /></span>
   <p>
-   Add items to your cart as you shop. Review your selections and adjust quantities before checkout — simple and flexible.
+   Add items to your cart as you shop. Review your selections and adjust quantities before checkout  simple and flexible.
 
 </p>
 </div>
 
 
-     
+   
 
 
 
 
       </div>
 
+
+      
     </div>
+
+
+    
   );
 };
 

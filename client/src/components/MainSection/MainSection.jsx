@@ -1,18 +1,18 @@
 import React from 'react';
 import { Swiper, SwiperSlide } from 'swiper/react';
-import styles from './Home.module.css';
+import styles from './MainSection.module.css';
 import 'swiper/css';
 import blackPhar from '../../assets/black.jpg';
 import { Navigation, Pagination, Autoplay } from 'swiper/modules';
 import 'swiper/css/pagination';
 import 'swiper/css/autoplay';
 import 'swiper/css/navigation';
-import ProcessComponents from '../ProcessComponents/ProcessComponents';
 
 
 
 
-const HomeComponent = () => {
+
+const MainSection = () => {
   return (
     <div className={styles.HomeComponent}>
       <div className={styles.HomeComponentwrapper}>
@@ -72,14 +72,15 @@ const HomeComponent = () => {
     </Swiper>
 
       </div>
-      <br />
+      
 
 
  
-      <ProcessComponents/>
+      
+      
     
     </div>
   );
 };
 
-export default HomeComponent;
+export default MainSection;

@@ -10,6 +10,7 @@
 
 
 
+
 }
 
 .processContainerWrapper {
@@ -19,7 +20,8 @@
   flex-wrap: wrap;
   justify-content: space-between;
   gap: 2rem;
-  padding: 10px;
+  padding: 2vh 4vh 4vh;
+
 }
 
 .cards {
