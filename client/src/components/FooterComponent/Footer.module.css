@@ -1,0 +1,58 @@
+.footer {
+  background-color: #2a2828; /* example red, or adjust as needed */
+  color: white;
+  padding: 2rem;
+}
+
+.infoSection {
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 2rem;
+  margin-bottom: 2rem;
+}
+
+.infoSection > div {
+  flex: 1;
+  min-width: 220px;
+}
+
+.infoSection h4 {
+  font-weight: bold;
+  margin-bottom: 0.5rem;
+}
+
+.nav {
+  margin-bottom: 1.5rem;
+}
+
+.linkList {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column; /* Stack vertically */
+  gap: 0.5rem;
+}
+
+.linkList li a {
+  color: white;
+  text-decoration: underline;
+  font-weight: 500;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.linkList li a:hover {
+  text-decoration: underline;
+}
+
+
+
+.footerBottom {
+  text-align: center;
+  font-size: 0.9rem;
+  border-top: 1px solid rgba(255, 255, 255, 0.2);
+  padding-top: 1rem;
+}
