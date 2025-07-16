@@ -1,0 +1,81 @@
+
+.latestNews {
+  padding: 3rem 1.5rem;
+  max-width: 1500px;
+  margin: auto;
+  background-color: #f9f9f9;
+  margin-top: 120vh;
+  overflow: none;
+}
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 2rem;
+}
+
+.header h2 {
+  font-size: 2rem;
+  font-weight: 600;
+  color: #333;
+}
+
+.blueT {
+  color: #3bb3f3;
+  font-weight: bold;
+}
+
+.viewAll {
+  font-size: 0.9rem;
+  color: #666;
+  text-decoration: none;
+}
+
+.cardsContainer {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1.5rem;
+}
+
+.card {
+  background: #fff;
+  border-radius: 10px;
+  overflow: hidden;
+  flex: 1 1 calc(33.33% - 1rem);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.08);
+  transition: transform 0.3s ease;
+}
+
+.card:hover {
+  transform: translateY(-5px);
+}
+
+.card img {
+  width: 100%;
+  height: 200px;
+  object-fit: cover;
+}
+
+.category {
+  background-color: #3bb3f3;
+  color: #fff;
+  font-size: 0.75rem;
+  padding: 5px 10px;
+  display: inline-block;
+  margin: 10px;
+  border-radius: 15px;
+}
+
+.meta {
+  font-size: 0.75rem;
+  color: #888;
+  margin: 0 10px;
+}
+
+.title {
+  font-size: 1rem;
+  font-weight: 600;
+  color: #333;
+  margin: 10px;
+}

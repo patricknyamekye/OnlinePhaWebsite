@@ -1,4 +1,5 @@
 import React, { useState } from 'react'
+import {Link } from "react-router-dom";
 import styles from "./Navbar.module.css";
 import pillsLogo from "../../assets/pills.png";
 import { FaHome, FaBox, FaPhone, FaSignInAlt } from "react-icons/fa";import { LiaShoppingCartSolid } from "react-icons/lia"
@@ -21,25 +22,28 @@ const NavbarComponents = () => {
  <nav className={styles.navbar}>
       <div className={styles.logo}>
        
-        <span><img src= {pillsLogo} alt="" /></span>
-         <li className={styles.logoname}>WellCare     </li> 
-          
-         </div>
-      <ul className={` ${styles.navLinks}  ${menuOpen ? styles.showMenu : "" }` }>
-        <li><a href="/home"> <FaHome/>Home</a></li>
-        <li><a href="/product"><FaBox/> Product</a></li>
-        <li><a href="/contact"> Contact <FaPhone/></a></li>
-        <li><a href="/contact"> Services <LiaUserInjuredSolid /></a></li>
-        <li><a href="/contact"> About Us<FaPhone/></a></li>
-        <li><a href="/login"> Login <FaSignInAlt/></a></li>
-      
-      </ul>
+          <span><img src= {pillsLogo} alt="" /></span>
+          <li className={styles.logoname}>WellCare     </li> 
+            
+      </div>
 
-      <ul className={styles.ups}>
-          <li><a href="/Cards"> <LiaShoppingCartSolid /></a></li>
-          <li><a href="/Cards"> <RiUploadCloudLine /></a></li>
-          <li className={styles.menu}  onClick={handleMenuClick}> <TfiMenu /></li>
-      </ul>
+          <ul className={` ${styles.navLinks}  ${menuOpen ? styles.showMenu : "" }`}>
+              <li><Link to="/"> <FaHome/> Home</Link></li>
+              <li><Link to="/product"><FaBox/> Product</Link></li>
+              <li><Link to="/contact-us">Contact <FaPhone/></Link></li>
+              <li><Link to="/services"> Services <LiaUserInjuredSolid /></Link></li>
+              <li><Link to="/about"> About Us <FaPhone/></Link></li>
+              <li><Link to="/login"> Login <FaSignInAlt/></Link></li>
+          </ul>
+
+              <ul className={styles.ups}>
+                <li><Link to="/cards"> <LiaShoppingCartSolid /></Link></li>
+                <li><Link to="/cards"> <RiUploadCloudLine /></Link></li>
+                <li className={styles.menu} onClick={handleMenuClick}><TfiMenu /></li>
+              </ul>
+
+      
+
     </nav>
   )
 }

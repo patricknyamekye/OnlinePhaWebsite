@@ -3,6 +3,7 @@ import MainSection from '../components/MainSection/MainSection'
 import NavbarComponents from  '../components/NavbarComponents/NavbarComponents'
 import ProcessComponents  from  '../components/ProcessComponents/ProcessComponents'
 import ProductAdvert  from  '../components/ProductAdvert/ProductAdvert'
+import LatestNews from '../components/LatestNews/LatestNews'
 
 const HomePage = () => {
   return (
@@ -11,6 +12,7 @@ const HomePage = () => {
     <MainSection />
     <ProcessComponents />
     <ProductAdvert/>
+    <LatestNews/>
     </>
 
   
