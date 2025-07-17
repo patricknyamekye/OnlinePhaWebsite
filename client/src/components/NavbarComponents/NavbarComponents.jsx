@@ -4,7 +4,7 @@ import styles from "./Navbar.module.css";
 import pillsLogo from "../../assets/pills.png";
 import { FaHome, FaBox, FaPhone, FaSignInAlt } from "react-icons/fa";import { LiaShoppingCartSolid } from "react-icons/lia"
 import { RiUploadCloudLine } from "react-icons/ri";
-import { LiaUserInjuredSolid } from "react-icons/lia";
+
 import { TfiMenu } from "react-icons/tfi";
 
 
@@ -31,12 +31,13 @@ const NavbarComponents = () => {
               <li><Link to="/"> <FaHome/> Home</Link></li>
               <li><Link to="/product"><FaBox/> Product</Link></li>
               <li><Link to="/contact-us">Contact <FaPhone/></Link></li>
-              <li><Link to="/services"> Services <LiaUserInjuredSolid /></Link></li>
+            
               <li><Link to="/about"> About Us <FaPhone/></Link></li>
-              <li><Link to="/login"> Login <FaSignInAlt/></Link></li>
           </ul>
 
               <ul className={styles.ups}>
+                  <li className={styles.log}><Link to="/login"> Login </Link></li>
+                  <li className={styles.log}><Link to="/signUp"> SignUp </Link></li>
                 <li><Link to="/cards"> <LiaShoppingCartSolid /></Link></li>
                 <li><Link to="/cards"> <RiUploadCloudLine /></Link></li>
                 <li className={styles.menu} onClick={handleMenuClick}><TfiMenu /></li>

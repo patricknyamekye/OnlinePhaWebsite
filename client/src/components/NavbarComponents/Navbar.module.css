@@ -76,11 +76,26 @@ width: 100%;
      font-size: 1.5rem;
 }
 
-.ups a:hover {
-  color: black;
-  background-color: #f8d7da;
-  padding: 3px;
-  border-radius: 50%;
+.log {
+  background-color: #e63946; /* Better red */
+  padding: 8px 16px;
+  border-radius: 6px;
+  margin-left: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 500;
+  transition: background-color 0.3s ease;
+}
+
+.log a {
+  color: white;
+  text-decoration: none;
+  font-size: 16px;
+}
+
+.log:hover {
+  background-color: #d62828; /* Darker red on hover */
 }
 
 

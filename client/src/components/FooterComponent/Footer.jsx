@@ -1,6 +1,5 @@
 import { Link } from 'react-router-dom';
-import { FaHome, FaBox, FaPhone, FaSignInAlt } from "react-icons/fa";
-import { LiaUserInjuredSolid } from "react-icons/lia";
+
 
 import Styles from './Footer.module.css';
 

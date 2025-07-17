@@ -1,12 +1,13 @@
-import React from 'react'
-import LoginConponent from '../components/LoginConponent/LoginConponent'
-import NavbarComponents from '../components/NavbarComponents/NavbarComponents'
 
-const LoginPage = () => {
+import Login from '../components/Login/Login'
+
+
+const LoginPage= () => {
   return (
     <>
-       < NavbarComponents/>
-    < LoginConponent />
+   
+    
+    < Login/>
     
     </>
   )
