@@ -1,28 +1,26 @@
 import React, { useState } from 'react';
 import style from './SignUp.module.css';
 import pills from '../../assets/pills.png'; // adjust path as needed
+import axios from 'axios';
+
 
 const SignUp = () => {
-  const [formData, setFormData] = useState({
-    firstname: '',
-    lastname: '',
-    email: '',
-    password: '',
-    confirmPassword: '',
-  });
 
-  const handleChange = (e) => {
-    setFormData(prev => ({
-      ...prev,
-      [e.target.name]: e.target.value,
-    }));
-  };
+
+  const [firstname, setFirstName] = useState();
+  const [lastname, setLastName] = useState();
+  const [email, setEmail] = useState();
+  const [password, setPassword] = useState();
+
+
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log('Form submitted:', formData);
-    // Your submit logic here
-  };
+    axios.post ('http://localhost:5000/signUp', {firstname,lastname,email,password })
+    .then(result => console.log(result))
+    .catch(err=> console.log(err))
+  }
+
 
   return (
     <div className={style.page}>
@@ -43,8 +41,8 @@ const SignUp = () => {
               required
               type="text"
               name="firstname"
-              value={formData.firstname}
-              onChange={handleChange}
+           
+            onChange={(e) => setFirstName(e.target.value)}
               className={style.input}
               placeholder=" "
             />
@@ -56,8 +54,7 @@ const SignUp = () => {
               required
               type="text"
               name="lastname"
-              value={formData.lastname}
-              onChange={handleChange}
+             onChange={(e) => setLastName(e.target.value)}
               className={style.input}
               placeholder=" "
             />
@@ -70,8 +67,7 @@ const SignUp = () => {
             required
             type="email"
             name="email"
-            value={formData.email}
-            onChange={handleChange}
+          onChange={(e) => setEmail(e.target.value)}
             className={style.input}
             placeholder=" "
           />
@@ -83,26 +79,14 @@ const SignUp = () => {
             required
             type="password"
             name="password"
-            value={formData.password}
-            onChange={handleChange}
+              onChange={(e) => setPassword(e.target.value)}
             className={style.input}
             placeholder=" "
           />
           <span>Password</span>
         </label>
 
-        <label>
-          <input
-            required
-            type="password"
-            name="confirmPassword"
-            value={formData.confirmPassword}
-            onChange={handleChange}
-            className={style.input}
-            placeholder=" "
-          />
-          <span>Confirm password</span>
-        </label>
+      
 
         <button type="submit" className={style.submit}>
           Submit

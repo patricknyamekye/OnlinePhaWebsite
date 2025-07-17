@@ -7,11 +7,13 @@ import { Link } from 'react-router-dom';
 
 const Login = () => {
 
+ 
   
   return (
     <div className={styles.page} style={{ backgroundImage: `url(${bgImage})` }}>
       <div className={styles.overlay}>
-        <form className={styles.form_container}>
+
+        <form className={styles.form_container} >
        
           <div className={styles.title_container}>
             <p className={styles.title}>Login to your Account</p>
@@ -24,7 +26,10 @@ const Login = () => {
             <label className={styles.input_label} htmlFor="email_field">Email</label>
             <input
               placeholder="name@mail.com"
+              required
               type="email"
+              name='email'
+           
               className={styles.input_field}
               id="email_field"
             />
@@ -34,6 +39,9 @@ const Login = () => {
             <label className={styles.input_label} htmlFor="password_field">Password</label>
             <input
               placeholder="Password"
+              required
+              name='password'
+          
               type="password"
               className={styles.input_field}
               id="password_field"
@@ -62,6 +70,6 @@ const Login = () => {
       </div>
     </div>
   );
-};
+}
 
 export default Login;
