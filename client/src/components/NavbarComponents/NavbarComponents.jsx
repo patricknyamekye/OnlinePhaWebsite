@@ -46,16 +46,14 @@ const NavbarComponents = () => {
                     <Link to="/cards" className={styles.cartLink}>
                       <LiaShoppingCartSolid />
                     {cartItems.length > 0 && (
-  <span className={styles.cartCount}>
-    {cartItems.reduce((total, item) => total + item.quantity, 0)}
-  </span>
-)}
+                <span className={styles.cartCount}>
+                  {cartItems.reduce((total, item) => total + item.quantity, 0)}
+                </span>
+              )}
                     </Link>
                   </li>
 
-
-
-                <li><Link to="/cards"> <RiUploadCloudLine /></Link></li>
+                <li><Link to=""> <RiUploadCloudLine /></Link></li>
                 <li className={styles.menu} onClick={handleMenuClick}><TfiMenu /></li>
               </ul>
 
