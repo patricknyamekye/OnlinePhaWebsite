@@ -1,9 +1,13 @@
 import React from 'react';
 import { useCart } from '../CartContext/CartContext';
 import styles from './CartPageComponent.module.css';
+import { useNavigate } from 'react-router-dom';
+
 
 const CartPageComponent = () => {
   const { cartItems, removeFromCart, incrementQty, decrementQty } = useCart();
+const navigate = useNavigate();
+
 
   const getSubtotal = () => {
     return cartItems
@@ -50,9 +54,13 @@ const CartPageComponent = () => {
         <p>
           <strong>Subtotal: GH₵ {getSubtotal()}</strong>
         </p>
-        <button className={styles.checkoutBtn}>
-          Checkout (GH₵ {getSubtotal()})
-        </button>
+        
+         <button
+      className={styles.checkoutBtn}
+      onClick={() => navigate('/checkout')}
+    >
+      Checkout (GH₵ {getSubtotal()})
+    </button>
       </div>
     </div>
   );
