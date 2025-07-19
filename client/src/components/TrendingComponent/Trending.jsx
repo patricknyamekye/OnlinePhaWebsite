@@ -5,8 +5,10 @@ import 'swiper/css';
 import 'swiper/css/navigation';
 import 'swiper/css/pagination';
 import PdA from '../../assets/PdA.png';
-import { Navigation, Pagination, Autoplay } from 'swiper/modules';
+import { Navigation } from 'swiper/modules';
 import styles from './Trending.module.css';
+
+import { useCart } from '../CartContext/CartContext'; // ✅ Import Cart Context
 
 const products = [
   {
@@ -47,6 +49,13 @@ const products = [
 ];
 
 const TrendingProduct = () => {
+  const { addToCart } = useCart(); // ✅ Get addToCart from context
+
+  const handleAddToCart = (e, product) => {
+    e.preventDefault(); // ✅ prevent Link navigation
+    addToCart(product); // ✅ add product to cart
+  };
+
   return (
     <section className={styles.trendingSection}>
       <h2 className={styles.trendingTitle}>Trending Product</h2>
@@ -55,11 +64,6 @@ const TrendingProduct = () => {
         spaceBetween={20}
         slidesPerView={1}
         navigation
-        pagination={{ clickable: true }}
-        autoplay={{
-          
-          disableOnInteraction: false,
-        }}
         breakpoints={{
           640: { slidesPerView: 2 },
           768: { slidesPerView: 3 },
@@ -75,7 +79,12 @@ const TrendingProduct = () => {
                 <p className={styles.productPrice}>{product.price}</p>
                 <div className={styles.buttonGroup}>
                   <button className={styles.buyNowButton}>BUY NOW</button>
-                  <button className={styles.addToCartButton}>ADD TO CART</button>
+                  <button
+                    className={styles.addToCartButton}
+                    onClick={(e) => handleAddToCart(e, product)}
+                  >
+                    ADD TO CART
+                  </button>
                 </div>
               </div>
             </Link>

@@ -6,12 +6,15 @@ import { LiaShoppingCartSolid } from "react-icons/lia"
 import { RiUploadCloudLine } from "react-icons/ri";
 
 import { TfiMenu } from "react-icons/tfi";
+import { useCart } from '../CartContext/CartContext';
 
 
 
 const NavbarComponents = () => {
 
   const [menuOpen, setMenuOpen] = useState(false );
+  const { cartItems } = useCart(); 
+
 
   const handleMenuClick = () => {
     setMenuOpen(!menuOpen);
@@ -38,7 +41,18 @@ const NavbarComponents = () => {
               <ul className={styles.ups}>
                   <li className={styles.log}><Link to="/login"> Login </Link></li>
                   <li className={styles.log}><Link to="/signUp"> SignUp </Link></li>
-                <li><Link to="/cards"> <LiaShoppingCartSolid /></Link></li>
+
+                  <li className={styles.cartIcon}>
+                    <Link to="/cards" className={styles.cartLink}>
+                      <LiaShoppingCartSolid />
+                      {cartItems.length > 0 && (
+                        <span className={styles.cartCount}>{cartItems.length}</span>
+                      )}
+                    </Link>
+                  </li>
+
+
+
                 <li><Link to="/cards"> <RiUploadCloudLine /></Link></li>
                 <li className={styles.menu} onClick={handleMenuClick}><TfiMenu /></li>
               </ul>
