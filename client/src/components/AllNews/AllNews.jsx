@@ -1,50 +1,41 @@
-import React from 'react'
-import styles from './LatestNews.module.css'
+import React from 'react';
+import styles from './AllNews.module.css';
 import bgImage from '../../assets/PdA.png';
 import { Link } from 'react-router-dom';
-
-
 
 const articles = [
   {
     id: 1,
     image: bgImage,
     category: "Uncategorized",
-    title:
-      "COVID-19 Structured Summaries: Rapid Publication Of Randomised Trial Protocols In BM...",
+    title: "COVID-19 Structured Summaries: Rapid Publication Of Randomised Trial Protocols In BM...",
     date: "March 2, 2022",
     author: "Admin",
   },
-
-   {
+  {
     id: 2,
     image: bgImage,
     category: "Uncategorized",
-    title:
-      "COVID-19 Structured Summaries: Rapid Publication Of Randomised Trial Protocols In BM...",
+    title: "COVID-19 Structured Summaries: Rapid Publication Of Randomised Trial Protocols In BM...",
     date: "March 2, 2022",
     author: "Admin",
-  }, {
+  },
+  {
     id: 3,
     image: bgImage,
     category: "Uncategorized",
-    title:
-      "COVID-19 Structured Summaries: Rapid Publication Of Randomised Trial Protocols In BM...",
+    title: "COVID-19 Structured Summaries: Rapid Publication Of Randomised Trial Protocols In BM...",
     date: "March 2, 2022",
     author: "Admin",
   },
-
-   {
+  {
     id: 4,
     image: bgImage,
     category: "Uncategorized",
-    title:
-      "COVID-19 Structured Summaries: Rapid Publication Of Randomised Trial Protocols In BM...",
+    title: "COVID-19 Structured Summaries: Rapid Publication Of Randomised Trial Protocols In BM...",
     date: "March 2, 2022",
     author: "Admin",
   },
-
-
   {
     id: 5,
     image: bgImage,
@@ -57,24 +48,16 @@ const articles = [
     id: 6,
     image: bgImage,
     category: "Medicine, Physical Sciences",
-    title:
-      "Using diffusion-weighted MRI scans to detect silent brain injury following open-heart valve...",
+    title: "Using diffusion-weighted MRI scans to detect silent brain injury following open-heart valve...",
     date: "February 2, 2022",
     author: "Admin",
   },
 ];
 
-
-const LatestNews = () => {
+const AllNews = () => {
   return (
-    <section className={styles.latestNews}>
-      <div className={styles.header}>
-        <h2>
-          <span className={styles.blueT}>T</span>he Latest News
-        </h2>
-     <Link to="/allnews" className={styles.viewAll}>View All →</Link>
-      </div>
-
+    <section className={styles.allNews}>
+      <h2 className={styles.pageTitle}>All News Articles</h2>
       <div className={styles.cardsContainer}>
         {articles.map((article) => (
           <Link to={`/newsDetails/${article.id}`} key={article.id} className={styles.cardLink}>
@@ -91,7 +74,4 @@ const LatestNews = () => {
   );
 };
 
-export default LatestNews;
-
-
-
+export default AllNews;

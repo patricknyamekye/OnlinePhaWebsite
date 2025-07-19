@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import {Link } from "react-router-dom";
 import styles from "./Navbar.module.css";
 import pillsLogo from "../../assets/pills.png";
-import { FaHome, FaBox, FaPhone, FaSignInAlt } from "react-icons/fa";import { LiaShoppingCartSolid } from "react-icons/lia"
+import { LiaShoppingCartSolid } from "react-icons/lia"
 import { RiUploadCloudLine } from "react-icons/ri";
 
 import { TfiMenu } from "react-icons/tfi";
@@ -28,11 +28,11 @@ const NavbarComponents = () => {
       </div>
 
           <ul className={` ${styles.navLinks}  ${menuOpen ? styles.showMenu : "" }`}>
-              <li><Link to="/"> <FaHome/> Home</Link></li>
-              <li><Link to="/product"><FaBox/> Product</Link></li>
-              <li><Link to="/contact-us">Contact <FaPhone/></Link></li>
+              <li><Link to="/"> Home</Link></li>
+              <li><Link to="/product">Product</Link></li>
+              <li><Link to="/contact-us">Contact </Link></li>
             
-              <li><Link to="/about"> About Us <FaPhone/></Link></li>
+              <li><Link to="/about"> About Us </Link></li>
           </ul>
 
               <ul className={styles.ups}>

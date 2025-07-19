@@ -7,6 +7,10 @@ import ProductPage from './pages/ProductPage';
 import AboutPage from './pages/AboutPage';
 import SignUpPage from './pages/SignUpPage';
 import  LoginPage from './pages/LoginPage';
+import TrendingProductDetailPage from './pages/TrendingProductDetailPage';
+
+import LatestNewDetailsPage from './pages/LatestNewDetailsPage ';
+import AllNewsPages from './pages/AllNewsPage';
 
 function App() {
   return (
@@ -18,7 +22,11 @@ function App() {
         <Route exact path="/login" element={ <  LoginPage/> } />
         <Route exact path="/product" element={ <  ProductPage/> } />
         <Route exact path="/SignUp" element={ <  SignUpPage/> } />
-        <Route exact path="/about" element={ < AboutPage /> } />
+        <Route exact path="/about" element={ < AboutPage /> } /> 
+         <Route  exact path="/product/:id" element={<TrendingProductDetailPage />} />
+         <Route exact path="/allnews" element={<AllNewsPages />} />
+         < Route exact path="/newsDetails/:id" element={<LatestNewDetailsPage />} />
+
         
       </Routes>
     </Router>

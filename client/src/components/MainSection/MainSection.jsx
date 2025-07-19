@@ -1,4 +1,4 @@
-import React from 'react';
+
 import { Swiper, SwiperSlide } from 'swiper/react';
 import styles from './MainSection.module.css';
 import 'swiper/css';
@@ -25,7 +25,7 @@ const MainSection = () => {
    
       navigation
       loop ={true}
-      autoplay={{delay: 3000}}
+      autoplay={{delay: 6000}}
      
     >
       <SwiperSlide>

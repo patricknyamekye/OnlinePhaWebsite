@@ -4,6 +4,7 @@ import NavbarComponents from  '../components/NavbarComponents/NavbarComponents'
 import ProcessComponents  from  '../components/ProcessComponents/ProcessComponents'
 import ProductAdvert  from  '../components/ProductAdvert/ProductAdvert'
 import LatestNews from '../components/LatestNews/LatestNews'
+import TrendingProduct from '../components/TrendingComponent/Trending'
 
 const HomePage = () => {
   return (
@@ -12,6 +13,7 @@ const HomePage = () => {
     <MainSection />
     <ProcessComponents />
     <ProductAdvert/>
+    <TrendingProduct/>
     <LatestNews/>
     </>
 
