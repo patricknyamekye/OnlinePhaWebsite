@@ -5,6 +5,10 @@ import ProcessComponents  from  '../components/ProcessComponents/ProcessComponen
 import ProductAdvert  from  '../components/ProductAdvert/ProductAdvert'
 import LatestNews from '../components/LatestNews/LatestNews'
 import TrendingProduct from '../components/TrendingComponent/Trending'
+import PharmacyServices from '../components/PharmacyServices/PharmacyServices'
+import Contact from '../components/Contacts/Contacts';
+import Footer from '../components/FooterComponent/Footer';
+
 
 const HomePage = () => {
   return (
@@ -15,6 +19,9 @@ const HomePage = () => {
     <ProductAdvert/>
     <TrendingProduct/>
     <LatestNews/>
+    <PharmacyServices/>
+    <Contact/>
+    <Footer/>
     </>
 
   
