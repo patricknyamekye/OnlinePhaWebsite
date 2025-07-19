@@ -45,9 +45,11 @@ const NavbarComponents = () => {
                   <li className={styles.cartIcon}>
                     <Link to="/cards" className={styles.cartLink}>
                       <LiaShoppingCartSolid />
-                      {cartItems.length > 0 && (
-                        <span className={styles.cartCount}>{cartItems.length}</span>
-                      )}
+                    {cartItems.length > 0 && (
+  <span className={styles.cartCount}>
+    {cartItems.reduce((total, item) => total + item.quantity, 0)}
+  </span>
+)}
                     </Link>
                   </li>
 

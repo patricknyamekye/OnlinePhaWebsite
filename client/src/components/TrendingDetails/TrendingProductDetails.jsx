@@ -1,12 +1,14 @@
 import { useParams } from 'react-router-dom';
 import PdA from '../../assets/PdA.png';
 import styles from './ProductDetails.module.css';
+import { useCart } from '../../components/CartContext/CartContext'; // Adjust path if needed
+
 
 const dummyProducts = [
   {
     id: 1,
     title: 'Vichy Capital Soleil SPF50 Tan Illumi...',
-    price: 'EGP 1,850.00',
+    price: 1850.00,
     image: PdA,
     available: true,
     description:'hello world'
@@ -14,7 +16,7 @@ const dummyProducts = [
   {
     id: 2,
     title: 'Neutrogena Hydro Boost Fluid SPF50 Hy...',
-    price: 'EGP 650.00',
+    price: 650.00,
     image: PdA,
     available: true, 
     description:'hello world'
@@ -22,7 +24,7 @@ const dummyProducts = [
   {
     id: 3,
     title: 'Braes The Blurring Gloss Bomb Lip Gloss',
-    price: 'EGP 450.00',
+    price: 450.00,
     image: PdA,
     available: true,
      description:'hello world'
@@ -30,7 +32,7 @@ const dummyProducts = [
   {
     id: 4,
     title: 'Catrice Kiss & Glow Blusher Stick - 18gm',
-    price: 'EGP 785.00',
+    price: 785.00,
     image: PdA,
     available: true,
      description:'hello world'
@@ -38,7 +40,7 @@ const dummyProducts = [
   {
     id: 5,
     title: 'Weleda Pomegranate & Maca Peptides Fi...',
-    price: 'EGP 1,250.00',
+    price: 1250.00,
     image: PdA,
     available: true,
      description:'hello world'
@@ -48,6 +50,8 @@ const dummyProducts = [
 const TrendingProductDetails = () => {
   const { id } = useParams();
   const product = dummyProducts.find((p) => p.id === parseInt(id));
+  const { addToCart } = useCart();
+
 
   if (!product) return <p>Product not found.</p>;
 
@@ -59,7 +63,21 @@ const TrendingProductDetails = () => {
       <p className={styles.price}>{product.price}</p>
       <div className={styles.buttonGroup}>
         <button className={`${styles.button} ${styles.buyButton}`}>Buy Now</button>
-        <button className={`${styles.button} ${styles.cartButton}`}>Add to Cart</button>
+
+   <button
+  className={`${styles.button} ${styles.cartButton}`}
+  onClick={() =>
+    addToCart({
+      id: product.id,
+      name: product.title,
+      price: product.price,
+      image: product.image,
+    })
+  }
+>
+  Add to Cart
+</button>
+
       </div>
     </div>
   );

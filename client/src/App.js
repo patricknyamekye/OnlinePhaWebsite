@@ -11,6 +11,7 @@ import TrendingProductDetailPage from './pages/TrendingProductDetailPage';
 
 import LatestNewDetailsPage from './pages/LatestNewDetailsPage ';
 import AllNewsPages from './pages/AllNewsPage';
+import CartPage from './pages/CartPage'; 
 
 function App() {
   return (
@@ -26,6 +27,8 @@ function App() {
          <Route  exact path="/product/:id" element={<TrendingProductDetailPage />} />
          <Route exact path="/allnews" element={<AllNewsPages />} />
          < Route exact path="/newsDetails/:id" element={<LatestNewDetailsPage />} />
+         <Route exact path="/cards" element={<CartPage />} />
+
 
         
       </Routes>
