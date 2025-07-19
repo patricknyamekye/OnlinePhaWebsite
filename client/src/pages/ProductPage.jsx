@@ -4,6 +4,7 @@ import NavbarComponents from '../components/NavbarComponents/NavbarComponents';
 import BannerComponent from '../components/ProductBanner/BannerComponent';
 import PdA from '../assets/PdA.png'; // Replace with actual image
 import { useCart } from '../components/CartContext/CartContext'; // ✅
+import Footer from '../components/FooterComponent/Footer';
 
 const products = [
   { 
@@ -114,6 +115,8 @@ const ProductPage = () => {
           />
         ))}
       </div>
+
+      <Footer/>
     </>
   );
 };

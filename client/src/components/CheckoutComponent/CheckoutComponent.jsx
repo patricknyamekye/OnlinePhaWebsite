@@ -1,10 +1,12 @@
 import React, { useState } from 'react';
 import { useCart } from '../CartContext/CartContext';
 import styles from './CheckoutComponent.module.css';
+import { useNavigate } from 'react-router-dom'; 
 
 
 const CheckoutComponent = () => {
   const { cartItems } = useCart();
+  const navigate = useNavigate(); 
 
   const [name, setName] = useState('');
   const [address, setAddress] = useState('');
@@ -20,10 +22,11 @@ const CheckoutComponent = () => {
     0
   );
 
-  const handleCheckout = () => {
-    alert('Order placed successfully!');
-    // Optionally: clear cart and redirect user
-  };
+ const handleCheckout = () => {
+  const trackingId = 'TRK' + Math.floor(Math.random() * 8000000000); // fake tracking ID
+  // Pass tracking ID to tracking page
+  navigate(`/tracking/${trackingId}`, { state: { trackingId } });
+};
 
   return (
     <div className={styles.checkoutContainer}>

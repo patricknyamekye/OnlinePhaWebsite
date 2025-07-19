@@ -8,7 +8,7 @@ import AboutPage from './pages/AboutPage';
 import SignUpPage from './pages/SignUpPage';
 import  LoginPage from './pages/LoginPage';
 import TrendingProductDetailPage from './pages/TrendingProductDetailPage';
-
+import TrackingPage from './pages/TrackingPage';
 import LatestNewDetailsPage from './pages/LatestNewDetailsPage ';
 import AllNewsPages from './pages/AllNewsPage';
 import CartPage from './pages/CartPage'; 
@@ -30,6 +30,8 @@ function App() {
          < Route exact path="/newsDetails/:id" element={<LatestNewDetailsPage />} />
          <Route exact path="/cards" element={<CartPage />} />
           <Route path="/checkout" element={<CheckoutComponentPage />} /> 
+          <Route path="/tracking/:trackingId" element={<TrackingPage />} />
+          
 
 
         
