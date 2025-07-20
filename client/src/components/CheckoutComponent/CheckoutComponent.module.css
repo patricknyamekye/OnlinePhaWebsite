@@ -44,11 +44,25 @@
   margin-top: 6px;
 }
 
-.cartItems {
-  list-style: none;
-  padding: 0;
-  margin: 0 0 20px 0;
+.cartItem {
+  display: flex;
+  align-items: center;
+  margin-bottom: 1rem;
 }
+
+.itemDetails {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.itemImage {
+  width: 60px;
+  height: 60px;
+  object-fit: cover;
+  border-radius: 8px;
+}
+
 
 .cartItem {
   display: flex;

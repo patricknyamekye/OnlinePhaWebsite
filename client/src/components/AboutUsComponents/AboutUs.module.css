@@ -1,4 +1,4 @@
-/* .aboutSection {
+.aboutSection {
   display: flex;
   flex-direction: row;
   justify-content: space-between;
@@ -46,46 +46,5 @@
   height: auto;
   border-radius: 12px;
   object-fit: cover;
-} */
+} 
 
-
-/* src/components/About.css */
-.aboutSection {
-  display: flex;
-  flex-wrap: wrap;
-  padding: 40px;
-  gap: 40px;
-  align-items: flex-start;
-  justify-content: center;
-}
-
-.aboutText {
-  flex: 1 1 500px;
-  max-width: 600px;
-}
-
-.aboutText h2 {
-  font-size: 2.5rem;
-  margin-bottom: 1rem;
-}
-
-.aboutText p {
-  font-size: 1.1rem;
-  line-height: 1.6;
-  margin-bottom: 1rem;
-}
-
-.aboutText .bold {
-  font-weight: bold;
-}
-
-.aboutTmage {
-  flex: 1 1 400px;
-  max-width: 600px;
-}
-
-.aboutImage img {
-  width: 100%;
-  height: auto;
-  border-radius: 12px;
-}

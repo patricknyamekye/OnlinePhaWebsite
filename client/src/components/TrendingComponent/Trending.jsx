@@ -5,6 +5,10 @@ import 'swiper/css';
 import 'swiper/css/navigation';
 import 'swiper/css/pagination';
 import PdA from '../../assets/PdA.png';
+import Sup from '../../assets/Sup.png';
+import pain from '../../assets/pain.jpg';
+import pani from '../../assets/pani.jpg';
+import pills2 from '../../assets/pills2.png';
 import { Navigation } from 'swiper/modules';
 import styles from './Trending.module.css';
 
@@ -15,28 +19,28 @@ const products = [
     id: 1,
     title: 'Vichy Capital Soleil SPF50 Tan Illumi...',
     price: 1850.00,
-    image: PdA,
+    image: Sup,
     available: true,
   },
   {
     id: 2,
     title: 'Neutrogena Hydro Boost Fluid SPF50 Hy...',
     price:  650.00,
-    image: PdA,
+    image: pills2,
     available: true,
   },
   {
     id: 3,
     title: 'Braes The Blurring Gloss Bomb Lip Gloss',
     price: 450.00,
-    image: PdA,
+    image: pain,
     available: true,
   },
   {
     id: 4,
     title: 'Catrice Kiss & Glow Blusher Stick - 18gm',
     price: 785.00,
-    image: PdA,
+    image: pani,
     available: true,
   },
   {
@@ -76,7 +80,7 @@ const TrendingProduct = () => {
               <div className={styles.productCard}>
                 <img src={product.image} alt={product.title} className={styles.productImage} />
                 <p className={styles.productTitle}>{product.title}</p>
-                <p className={styles.productPrice}>{product.price}</p>
+                <p className={styles.productPrice}>{` GH ${product.price}`}</p>
                 <div className={styles.buttonGroup}>
                   <button className={styles.buyNowButton}>BUY NOW</button>
                   <button

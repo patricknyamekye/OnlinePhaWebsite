@@ -1,6 +1,8 @@
 import React from 'react'
 import styles from './LatestNews.module.css'
 import bgImage from '../../assets/PdA.png';
+import mentalH from '../../assets/mentalH.jpg';
+import hm from '../../assets/hm.jpg';
 import { Link } from 'react-router-dom';
 
 
@@ -8,7 +10,7 @@ import { Link } from 'react-router-dom';
 const articles = [
   {
     id: 1,
-    image: bgImage,
+    image: mentalH,
     category: "Uncategorized",
     title:
       "COVID-19 Structured Summaries: Rapid Publication Of Randomised Trial Protocols In BM...",
@@ -18,7 +20,7 @@ const articles = [
 
    {
     id: 2,
-    image: bgImage,
+    image: hm,
     category: "Uncategorized",
     title:
       "COVID-19 Structured Summaries: Rapid Publication Of Randomised Trial Protocols In BM...",

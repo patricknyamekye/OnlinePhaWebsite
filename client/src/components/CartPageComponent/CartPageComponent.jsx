@@ -3,16 +3,22 @@ import { useCart } from '../CartContext/CartContext';
 import styles from './CartPageComponent.module.css';
 import { useNavigate } from 'react-router-dom';
 
-
 const CartPageComponent = () => {
   const { cartItems, removeFromCart, incrementQty, decrementQty } = useCart();
-const navigate = useNavigate();
-
+  const navigate = useNavigate();
 
   const getSubtotal = () => {
     return cartItems
       .reduce((sum, item) => sum + Number(item.price) * item.quantity, 0)
       .toFixed(2);
+  };
+
+  const handleCheckout = () => {
+    if (cartItems.length === 0) {
+      alert('Your cart is empty. Please add items before proceeding to checkout.');
+    } else {
+      navigate('/checkout');
+    }
   };
 
   return (
@@ -54,13 +60,13 @@ const navigate = useNavigate();
         <p>
           <strong>Subtotal: GH₵ {getSubtotal()}</strong>
         </p>
-        
-         <button
-      className={styles.checkoutBtn}
-      onClick={() => navigate('/checkout')}
-    >
-      Checkout (GH₵ {getSubtotal()})
-    </button>
+
+        <button
+          className={styles.checkoutBtn}
+          onClick={handleCheckout}
+        >
+          Checkout (GH₵ {getSubtotal()})
+        </button>
       </div>
     </div>
   );

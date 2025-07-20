@@ -126,8 +126,13 @@ width: 100%;
   border-radius: 50%;
 }
 
+.uploadButton{
+  color: white;
+}
 
-
+.uploadButton:hover {
+  color: #007bff;
+}
 
 
 

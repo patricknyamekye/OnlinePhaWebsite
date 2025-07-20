@@ -82,12 +82,19 @@ const CheckoutComponent = () => {
         <div className={styles.section}>
           <h2>Order Summary</h2>
           <ul className={styles.cartItems}>
-            {cartItems.map((item) => (
-              <li key={item.id} className={styles.cartItem}>
-                <span>{item.title} x {item.quantity}</span>
-                <span>GH₵ {(item.price * item.quantity).toFixed(2)}</span>
-              </li>
-            ))}
+
+       {cartItems.map((item) => (
+  <li key={item.id} className={styles.cartItem}>
+    <div className={styles.itemDetails}>
+      <img src={item.image} alt={item.title} className={styles.itemImage} />
+      <div>
+        <p>{item.title} x {item.quantity}</p>
+        <p>GH₵ {(item.price * item.quantity).toFixed(2)}</p>
+      </div>
+    </div>
+  </li>
+))}
+
           </ul>
           <div className={styles.total}>
             <span>Total:</span>
