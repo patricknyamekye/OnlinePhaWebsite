@@ -1,38 +1,39 @@
 .container {
-  padding: 2rem;
-  background-color: #fff;
-  border-radius: 12px;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-  max-width: 600px;
-  margin: 2rem auto;
+  padding: 20px;
+  max-width: 800px;
+  margin: 0 auto;
+  text-align: center;
 }
 
-.statusList {
+.itemList {
   list-style: none;
   padding: 0;
-  margin: 1rem 0;
 }
 
-.statusList li {
-  padding: 10px;
-  border-left: 4px solid #ccc;
-  margin-bottom: 10px;
-  padding-left: 1rem;
-  font-size: 1.1rem;
+.item {
+  display: flex;
+  justify-content: space-between;
+  padding: 10px 0;
+  border-bottom: 1px solid #ccc;
 }
 
-.completed {
-  color: green;
-  border-color: green;
+.item span {
+  flex: 1;
 }
 
-.active {
-  font-weight: bold;
-  color: #007bff;
-  border-color: #007bff;
+.item span:nth-child(2) {
+  text-align: center;
 }
 
-.inactive {
-  color: #999;
-  border-color: #ccc;
+.item span:nth-child(3) {
+  text-align: right;
+}
+
+h1 {
+  margin-bottom: 20px;
+}
+
+p {
+  font-size: 18px;
+  color: #333;
 }

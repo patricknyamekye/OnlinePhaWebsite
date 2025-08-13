@@ -1,111 +1,169 @@
-import React, { useState } from 'react';
-import { useCart } from '../CartContext/CartContext';
+import React, { useState, useEffect } from 'react';
 import styles from './CheckoutComponent.module.css';
-import { useNavigate } from 'react-router-dom'; 
-
+import { useLocation, useNavigate, useParams } from 'react-router-dom';
+import axios from 'axios';
+import { PaystackButton } from 'react-paystack';
 
 const CheckoutComponent = () => {
-  const { cartItems } = useCart();
-  const navigate = useNavigate(); 
+  const { userId } = useParams();
+  const navigate = useNavigate();
+  const [shippingInfo, setShippingInfo] = useState({
+    name: '',
+    address: '',
+    city: '',
+    postalCode: '',
+    country: '',
+  });
 
-  const [name, setName] = useState('');
-  const [address, setAddress] = useState('');
-  const [city, setCity] = useState('');
-  const [postalCode, setPostalCode] = useState('');
-  const [country, setCountry] = useState('');
-  const [cardNumber, setCardNumber] = useState('');
-  const [expiryDate, setExpiryDate] = useState('');
-  const [cvv, setCvv] = useState('');
+  const location = useLocation();
+  const cart = location.state?.cart || [];
 
-  const totalPrice = cartItems.reduce(
-    (sum, item) => sum + item.price * item.quantity,
+  useEffect(() => {
+    // Get user data from local storage
+    const user = JSON.parse(localStorage.getItem('user'));
+    if (user) {
+      setShippingInfo({
+        name: user.fullName || '',
+        address: user.address || '',
+        city: user.city || '',
+        postalCode: user.postalCode || '',
+        country: user.country || '',
+      });
+    }
+  }, []);
+
+  const handleShippingChange = (e) => {
+    setShippingInfo({
+      ...shippingInfo,
+      [e.target.name]: e.target.value,
+    });
+  };
+
+  const totalPrice = cart.reduce(
+    (total, item) => total + item.price * item.quantity,
     0
   );
 
- const handleCheckout = () => {
-  const trackingId = 'TRK' + Math.floor(Math.random() * 8000000000); // fake tracking ID
-  // Pass tracking ID to tracking page
-  navigate(`/tracking/${trackingId}`, { state: { trackingId } });
-};
+  const amount = totalPrice * 100; // Convert to pesewas
+
+  const handlePaymentSuccess = async (reference) => {
+    console.log('Payment successful!', reference);
+
+    try {
+      const response = await axios.post('http://localhost:5000/api/checkout', {
+        userId,
+        cart: cart, 
+        shippingInfo
+      });
+
+      console.log(response)
+  
+      if (response.status === 200) {
+        navigate(`/tracking/${userId}`); // Redirect to a success page
+      }
+
+    } catch (error) {
+      console.error('Error during checkout:', error);
+    }
+  };
+
+  const handlePaymentClose = () => {
+    console.log('Payment closed');
+  };
+
+  const componentProps = {
+    email: JSON.parse(localStorage.getItem('user')).email, // Assuming email is stored in user object
+    amount, // Amount in pesewas
+    publicKey: 'pk_test_201a7fc56153c4c1e064b22f6811400ac80a9c41', // Replace with your Paystack public key
+    text: "Proceed to Payment",
+    onSuccess: handlePaymentSuccess,
+    onClose: handlePaymentClose,
+    currency: 'GHS', // Set currency to GHS (Ghanaian Cedis)
+  };
+
+  const handleCheckout = async () => {
+    
+  };
 
   return (
     <div className={styles.checkoutContainer}>
       <h1>Checkout</h1>
       <div className={styles.checkoutSections}>
-        {/* Shipping Info */}
         <div className={styles.section}>
           <h2>Shipping Information</h2>
           <form className={styles.form}>
+            {/* Shipping Form Inputs */}
             <label>
               Full Name
-              <input type="text" value={name} onChange={(e) => setName(e.target.value)} required />
+              <input
+                type="text"
+                name="name"
+                value={shippingInfo.name}
+                onChange={handleShippingChange}
+                required
+              />
             </label>
             <label>
               Address
-              <input type="text" value={address} onChange={(e) => setAddress(e.target.value)} required />
+              <input
+                type="text"
+                name="address"
+                value={shippingInfo.address}
+                onChange={handleShippingChange}
+                required
+              />
             </label>
             <label>
               City
-              <input type="text" value={city} onChange={(e) => setCity(e.target.value)} required />
+              <input
+                type="text"
+                name="city"
+                value={shippingInfo.city}
+                onChange={handleShippingChange}
+                required
+              />
             </label>
             <label>
               Postal Code
-              <input type="text" value={postalCode} onChange={(e) => setPostalCode(e.target.value)} required />
+              <input
+                type="text"
+                name="postalCode"
+                value={shippingInfo.postalCode}
+                onChange={handleShippingChange}
+                required
+              />
             </label>
             <label>
               Country
-              <input type="text" value={country} onChange={(e) => setCountry(e.target.value)} required />
+              <input
+                type="text"
+                name="country"
+                value={shippingInfo.country}
+                onChange={handleShippingChange}
+                required
+              />
             </label>
           </form>
         </div>
-
-        {/* Payment Info */}
-        <div className={styles.section}>
-          <h2>Payment Information</h2>
-          <form className={styles.form}>
-            <label>
-              Card Number
-              <input type="text" value={cardNumber} onChange={(e) => setCardNumber(e.target.value)} required />
-            </label>
-            <label>
-              Expiry Date
-              <input type="text" placeholder="MM/YY" value={expiryDate} onChange={(e) => setExpiryDate(e.target.value)} required />
-            </label>
-            <label>
-              CVV
-              <input type="text" value={cvv} onChange={(e) => setCvv(e.target.value)} required />
-            </label>
-          </form>
-        </div>
-
-        {/* Order Summary */}
-        <div className={styles.section}>
+   
+  
+      </div>
+      <div className={styles.section}>
           <h2>Order Summary</h2>
           <ul className={styles.cartItems}>
-
-       {cartItems.map((item) => (
-  <li key={item.id} className={styles.cartItem}>
-    <div className={styles.itemDetails}>
-      <img src={item.image} alt={item.title} className={styles.itemImage} />
-      <div>
-        <p>{item.title} x {item.quantity}</p>
-        <p>GH₵ {(item.price * item.quantity).toFixed(2)}</p>
-      </div>
-    </div>
-  </li>
-))}
-
+            {cart && cart.map((item, index) => (
+              <li key={index} className={styles.cartItem}>
+                <span>{item.name} x {item.quantity}</span>
+                <span>GHC {(item.price * item.quantity).toFixed(2)}</span>
+              </li>
+            ))}
           </ul>
           <div className={styles.total}>
             <span>Total:</span>
-            <span>GH₵ {totalPrice.toFixed(2)}</span>
+            <span>GHC {totalPrice.toFixed(2)}</span>
           </div>
         </div>
-      </div>
-      
-      <button className={styles.placeOrderBtn} onClick={handleCheckout}>
-        Place Order
-      </button>
+      <PaystackButton className={styles.paymentBtn} {...componentProps} />
     </div>
   );
 };

@@ -1,44 +1,29 @@
-
-
 .processContainer
 {
-  position: absolute;
-
-  height: 55vh;
+  height: fit-content;
   width: 100vw;
   display: flex;
   justify-content: center;
   background-color: #ffffff;
    overflow: hidden;
-  
-
-
-
-
-} 
-
-
-
-
+   padding: 20px;
+   box-sizing: border-box;
+}
 
 .processContainerWrapper {
-
   display: flex;
-  flex-direction: column;
+  /* flex-direction: column; */
   flex-wrap: wrap;
   justify-content: space-between;
   gap: 2rem;
-  padding: 6vh 4vh 4vh 6vh;
+  /* padding: 6vh 4vh 4vh 6vh; */
   height: inherit;
-
- 
-
+  width: 100%;
 }
 
 .cards {
-
   height: 40vh;
-  width: 20vw;
+  width: 20%;
   background-color: #ffffff;
   border-radius: 1rem;
  box-shadow:
@@ -56,13 +41,11 @@
   border: 2px solid  var(--primary-color-60);
 }
 
-
-
 .cards span {
   display: inline-block;
-  font-size: 5rem;
+  font-size: 3rem;
   color: #189AB4; /* Match your site’s tone */
-   margin-bottom: 1rem;
+   /* margin-bottom: 1rem; */
 } 
   
  .cards p {
@@ -70,4 +53,3 @@
   color: #333;
   line-height: 1.6;
 } 
-

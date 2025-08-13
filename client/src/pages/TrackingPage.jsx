@@ -3,11 +3,10 @@ import { useParams } from 'react-router-dom';
 import TrackComponent from '../components/TrackComponent/TrackComponent';
 
 const TrackingPage = () => {
-  const { trackingId } = useParams();
 
   return (
     <div>
-      <TrackComponent trackingId={trackingId} />
+      <TrackComponent />
     </div>
   );
 };

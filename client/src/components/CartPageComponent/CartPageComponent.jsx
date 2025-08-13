@@ -1,75 +1,108 @@
-import React from 'react';
-import { useCart } from '../CartContext/CartContext';
+import React, { useEffect, useState } from 'react';
 import styles from './CartPageComponent.module.css';
 import { useNavigate } from 'react-router-dom';
+import axios from 'axios';
+import { useParams } from 'react-router-dom';
 
 const CartPageComponent = () => {
-  const { cartItems, removeFromCart, incrementQty, decrementQty } = useCart();
-  const navigate = useNavigate();
+    const navigate = useNavigate();
+    const [cart, setCart] = useState([]);
+    const user = localStorage.getItem('user')
+    const {userId} = useParams()
 
-  const getSubtotal = () => {
-    return cartItems
-      .reduce((sum, item) => sum + Number(item.price) * item.quantity, 0)
-      .toFixed(2);
-  };
+    // console.log("User:", userId)
 
-  const handleCheckout = () => {
-    if (cartItems.length === 0) {
-      alert('Your cart is empty. Please add items before proceeding to checkout.');
-    } else {
-      navigate('/checkout');
-    }
-  };
+    const handleCheckout = () => {
+        navigate(`/checkout/${userId}`, { state: { cart } });
+    };
 
-  return (
-    <div className={styles.cartPage}>
-      <div className={styles.cartItems}>
-        <h2>Cart ({cartItems.length})</h2>
-        {cartItems.map((item) => (
-          <div className={styles.cartItem} key={item.id}>
-            <img src={item.image} alt={item.title} className={styles.itemImage} />
-            <div className={styles.itemDetails}>
-              <h3>{item.title}</h3>
-              {item.stock <= 10 && (
-                <p className={styles.stockText}>{item.stock} units left</p>
-              )}
-              <p className={styles.itemPrice}>
-                GH₵ {Number(item.price).toFixed(2)}
-              </p>
+    const handleIncrement = async (index) => {
+        const item = cart[index];
+        
+        if ( item.quantity < item.productQuantity) {
+            try {
+                const response = await axios.put(`http://localhost:5000/api/increase-product-quantity/${item.productId}/${userId}`);
+                 setCart(response.data.cart);
+             } catch (error) {
+                 console.error('Error incrementing quantity:', error);
+             }
+        }
+    };
 
-              <div className={styles.quantityControls}>
-                <button onClick={() => decrementQty(item.id)}>-</button>
-                <span>{item.quantity}</span>
-                <button onClick={() => incrementQty(item.id)}>+</button>
-              </div>
+    const handleDecrement = async (index, quantity) => {
+        const item = cart[index];
+        
+        if (quantity > 1) { 
+            try {
+              const response = await axios.put(`http://localhost:5000/api/decrease-product-quantity/${item.productId}/${userId}`);
+                setCart(response.data.cart);
+            } catch (error) {
+                console.error('Error decrementing quantity:', error);
+            }
+        } else {
+            // Optionally handle removing item from cart if quantity is 1 and user wants to decrement
+            handleRemove(index);
+        }
+    };
 
-              <button
-                className={styles.removeBtn}
-                onClick={() => removeFromCart(item.id)}
-              >
-                Remove
-              </button>
+    const handleRemove = async (index) => {
+        const item = cart[index];
+        
+        try {
+            await axios.post(`http://localhost:5000/api/${userId}/remove-from-cart`, { productId: item.productId });
+            const updatedCart = [...cart];
+            updatedCart.splice(index, 1);
+            setCart(updatedCart);
+        } catch (error) {
+            console.error('Error removing item from cart:', error);
+        }
+    };
+
+    const updateCartOnServer = async (updatedCart) => {
+        await axios.post(`http://localhost:5000/api/user/${userId}/update-cart`, { cart: updatedCart });
+    };
+
+    useEffect(() => {
+       const getCart = async () => {
+        const response = await axios.get(`http://localhost:5000/api/user/${userId}`);
+        if (response.status === 200) {
+            setCart(response.data.cart);
+        }
+    };
+        getCart();
+    }, [userId]);
+
+    // Calculate total price from individual item subtotals
+    const total = cart.reduce((sum, item) => sum + (item.price * item.quantity), 0);
+
+    return (
+        <div className={styles.modalOverlay}>
+            <div className={styles.modalContent}>
+                <h2>Your Cart</h2>
+                {cart.length > 0 ? (
+                    <ul className={styles.cartItems}>
+                        {cart.map((item, index) => (
+                            <li key={index} className={styles.cartItem}>
+                                <span>{item.name}</span>
+                                <div className={styles.quantityControl}>
+                                    <button onClick={() => handleDecrement(index, item.quantity)}>-</button>
+                                    <span>{item.quantity}</span>
+                                    <button onClick={() => handleIncrement(index, item.quantity)}>+</button>
+                                </div>
+                                <span>GHC {item.price * item.quantity}</span>
+                            </li>
+                        ))}
+                    </ul>
+                ) : (
+                    <p>Your cart is empty.</p>
+                )}
+                <div className={styles.modalFooter}>
+                  <p className={styles.totalPrice}>Total: GHC {total}</p>
+                    {cart.length > 0 && <button onClick={handleCheckout} className={styles.checkoutBtn}>Proceed to Checkout</button>}
+                </div>
             </div>
-          </div>
-        ))}
-      </div>
-
-      <div className={styles.summary}>
-        <h3>CART SUMMARY</h3>
-        <p>Item's total ({cartItems.length})</p>
-        <p>
-          <strong>Subtotal: GH₵ {getSubtotal()}</strong>
-        </p>
-
-        <button
-          className={styles.checkoutBtn}
-          onClick={handleCheckout}
-        >
-          Checkout (GH₵ {getSubtotal()})
-        </button>
-      </div>
-    </div>
-  );
+        </div>
+    );
 };
 
 export default CartPageComponent;

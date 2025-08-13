@@ -1,4 +1,3 @@
-
 import { Swiper, SwiperSlide } from 'swiper/react';
 import styles from './MainSection.module.css';
 import 'swiper/css';
@@ -16,7 +15,6 @@ const MainSection = () => {
   return (
     <div className={styles.HomeComponent}>
       <div className={styles.HomeComponentwrapper}>
-       
        <Swiper
       spaceBetween={50}
       modules={[Pagination, Navigation, Autoplay]}
@@ -26,9 +24,9 @@ const MainSection = () => {
       navigation
       loop ={true}
       autoplay={{delay: 6000}}
-     
+     className={styles.slide}
     >
-      <SwiperSlide>
+      <SwiperSlide className={styles.slidee} >
         <div className={styles.sliders}> 
          <img src={blackPhar} alt="Pills" className={styles.slideImage} />
 
@@ -40,12 +38,12 @@ const MainSection = () => {
         Whether you’re on your phone or at your desk, getting your 
         medication is now effortless. Any device, any time. It's simple! </p>
 
-         <a href="/products" className={styles.orderButton}>Order Now</a>
+         <a href="/product" className={styles.orderButton}>Order Now</a>
         </div>
         
       </SwiperSlide>
 
-      <SwiperSlide>
+      <SwiperSlide className={styles.slidee} >
        <div className={styles.sliders}> 
          <img src={blackPhar} alt="Pills" className={styles.slideImage} />
 
@@ -56,29 +54,26 @@ const MainSection = () => {
           <p>You can purchase the medications you need from anywhere and 
          we'll deliver them straight to your  doorstep in Ghana</p>
 
-         <a href="/products" className={styles.orderButton}>Learn More</a>
+         <a href="/product" className={styles.orderButton}>Learn More</a>
         </div>
 
       </SwiperSlide>
 
-      <SwiperSlide>
+      <SwiperSlide className={styles.slidee} >
          <div className={styles.sliders}> 
          <img src={blackPhar} alt="Pills" className={styles.slideImage} />
-
         </div>
-        </SwiperSlide>
+
+        <div className={styles.homeText}>
+          <h1>Affordable Prices, Quality Medications</h1>
+          <p>We ensure that you get the best medications at the most affordable prices. Your health is our priority.</p>
+          <a href="/about" className={styles.orderButton}>Learn More</a>
+        </div>
+      </SwiperSlide>
    
     
     </Swiper>
-
       </div>
-      
-
-
- 
-      
-      
-    
     </div>
   );
 };

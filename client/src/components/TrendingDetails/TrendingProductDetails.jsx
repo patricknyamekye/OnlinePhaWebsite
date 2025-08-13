@@ -1,7 +1,9 @@
-import { useParams } from 'react-router-dom';
+import React, { useEffect, useState } from 'react';
 import PdA from '../../assets/PdA.png';
 import styles from './ProductDetails.module.css';
-import { useCart } from '../../components/CartContext/CartContext'; // Adjust path if needed
+import { useNavigate, useParams } from 'react-router-dom';
+import axios from 'axios';
+import Swal from 'sweetalert2'
 
 
 const dummyProducts = [
@@ -48,35 +50,69 @@ const dummyProducts = [
 ];
 
 const TrendingProductDetails = () => {
-  const { id } = useParams();
-  const product = dummyProducts.find((p) => p.id === parseInt(id));
-  const { addToCart } = useCart();
+  const { prodId } = useParams();
+  const [product, setProduct] = useState(null);
+  const user = JSON.parse(localStorage.getItem('user'));
+  const userId = user ? user._id : null
 
+  console.log(prodId)
+
+  const navigate = useNavigate()
+
+  useEffect(() => {
+    const fetchProduct = async () => {
+      try {
+        const response = await axios.get(`http://localhost:5000/api/get-product/${prodId}`);
+        setProduct(response.data);
+      } catch (error) {
+        console.error('Error fetching product:', error);
+      }
+    };
+
+    fetchProduct();
+  }, [prodId]);
+
+  if (!product) {
+    return <div>Loading...</div>;
+  }
+
+  const handleCheckOut = (price, name) => {
+    if (userId === null) {
+      Swal.fire({
+        title: 'You are not logged in!',
+        text: 'Please log in to add items to your cart.',
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonText: 'Log In',
+        cancelButtonText: 'Browse',
+      }).then((result) => {
+        if (result.isConfirmed) {
+          navigate('/login');
+        }
+      });
+    }else {
+      navigate(`/checkout/${userId}`)
+    }
+    
+  }
 
   if (!product) return <p>Product not found.</p>;
 
   return (
     <div className={styles.container}>
       <h1 className={styles.title}>{product.title}</h1>
-      <img src={product.image} alt={product.title} className={styles.image} />
+      <img src={`http://localhost:5000/uploads/${product.productImg}`} alt={product.name} className={styles.image} />
+                      <p className={styles.productTitle}>{product.name}</p>
       <p className={styles.description}>{product.description || 'No description available.'}</p>
       <p className={styles.price}>{product.price}</p>
       <div className={styles.buttonGroup}>
-        <button className={`${styles.button} ${styles.buyButton}`}>Buy Now</button>
+        <button onClick={handleCheckOut} className={`${styles.button} ${styles.buyButton}`}>Buy Now</button>
 
-   <button
+   {/* <button
   className={`${styles.button} ${styles.cartButton}`}
-  onClick={() =>
-    addToCart({
-      id: product.id,
-      name: product.title,
-      price: product.price,
-      image: product.image,
-    })
-  }
 >
   Add to Cart
-</button>
+</button> */}
 
       </div>
     </div>

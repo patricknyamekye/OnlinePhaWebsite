@@ -1,4 +1,4 @@
-import React, { useState, useRef } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import styles from './Navbar.module.css';
 import pillsLogo from '../../assets/pills.png';
@@ -6,11 +6,24 @@ import { LiaShoppingCartSolid } from 'react-icons/lia';
 import { RiUploadCloudLine } from 'react-icons/ri';
 import { TfiMenu } from 'react-icons/tfi';
 import { useCart } from '../CartContext/CartContext';
+import { useNavigate } from 'react-router-dom';
 
 const NavbarComponents = () => {
   const [menuOpen, setMenuOpen] = useState(false);
   const { cartItems } = useCart();
+  const navigate = useNavigate()
   const fileInputRef = useRef(null);
+  const userLocal = JSON.parse(localStorage.getItem('user'));
+
+    const user = JSON.parse(localStorage.getItem('user'));
+  const userEmail = user ? user.email : null;
+  const userName = user ? user.username : null;
+  const userId = user ? user._id : null
+
+  const handleLogout = () => {
+    localStorage.removeItem('user');
+    navigate('/');
+  };
 
   const handleMenuClick = () => {
     setMenuOpen(!menuOpen);
@@ -32,7 +45,7 @@ const NavbarComponents = () => {
     <nav className={styles.navbar}>
       <div className={styles.logo}>
         <span><img src={pillsLogo} alt="logo" /></span>
-        <li className={styles.logoname}>WellCare</li>
+        <span className={styles.logoname}>WellCare</span>
       </div>
 
       <ul className={`${styles.navLinks} ${menuOpen ? styles.showMenu : ''}`}>
@@ -43,11 +56,23 @@ const NavbarComponents = () => {
       </ul>
 
       <ul className={styles.ups}>
-        <li className={styles.log}><Link to="/login">Login</Link></li>
+        {
+          userEmail ? 
+             <>
+            <div onClick={() => {navigate("/checkout-success")}} className={styles.userCircle}>
+              {userName && userName.charAt(0).toUpperCase()}
+            </div>
+            <button onClick={handleLogout} className={styles.log}>Logout</button>
+          </>
+          :
+        <>
+          <li className={styles.log}><Link to="/login">Login</Link></li>
         <li className={styles.log}><Link to="/signUp">SignUp</Link></li>
+        </>
+        }
 
         <li className={styles.cartIcon}>
-          <Link to="/cards" className={styles.cartLink}>
+          <Link to={`/carts/${userId}`} className={styles.cartLink}>
             <LiaShoppingCartSolid />
             {cartItems.length > 0 && (
               <span className={styles.cartCount}>

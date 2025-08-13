@@ -1,65 +1,74 @@
-import React from 'react';
+import React, {useState, useEffect} from 'react';
 import { Swiper, SwiperSlide } from 'swiper/react';
-import { Link } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import 'swiper/css';
 import 'swiper/css/navigation';
 import 'swiper/css/pagination';
-import PdA from '../../assets/PdA.png';
-import Sup from '../../assets/Sup.png';
-import pain from '../../assets/pain.jpg';
-import pani from '../../assets/pani.jpg';
-import pills2 from '../../assets/pills2.png';
 import { Navigation } from 'swiper/modules';
 import styles from './Trending.module.css';
-
-import { useCart } from '../CartContext/CartContext'; // ✅ Import Cart Context
-
-const products = [
-  {
-    id: 1,
-    title: 'Vichy Capital Soleil SPF50 Tan Illumi...',
-    price: 1850.00,
-    image: Sup,
-    available: true,
-  },
-  {
-    id: 2,
-    title: 'Neutrogena Hydro Boost Fluid SPF50 Hy...',
-    price:  650.00,
-    image: pills2,
-    available: true,
-  },
-  {
-    id: 3,
-    title: 'Braes The Blurring Gloss Bomb Lip Gloss',
-    price: 450.00,
-    image: pain,
-    available: true,
-  },
-  {
-    id: 4,
-    title: 'Catrice Kiss & Glow Blusher Stick - 18gm',
-    price: 785.00,
-    image: pani,
-    available: true,
-  },
-  {
-    id: 5,
-    title: 'Weleda Pomegranate & Maca Peptides Fi...',
-    price: 12,
-    image: PdA,
-    available: true,
-  },
-];
+import Swal from 'sweetalert2';
+import axios from 'axios';
 
 const TrendingProduct = () => {
-  const { addToCart } = useCart(); // ✅ Get addToCart from context
+  const [products, setProducts] = useState([]);
+  const navigate = useNavigate();
 
-  const handleAddToCart = (e, product) => {
-    e.preventDefault(); // ✅ prevent Link navigation
-    addToCart(product); // ✅ add product to cart
+  useEffect(() => {
+    const getProducts = async () => {
+      try {
+        const response = await axios.get('http://localhost:5000/api/get-products');
+        if (response) {
+          // Filter products where owner field is empty
+          const filteredProduct = response.data.products.filter(product => !product.owner);
+
+          setProducts(filteredProduct);
+        }
+      } catch (error) {
+        console.error('Error fetching products:', error);
+      }
+    };
+
+    getProducts();
+  }, []);
+
+  const handleAddToCart = async (product) => {
+    const user = JSON.parse(localStorage.getItem('user'));
+
+    if (!user) {
+      Swal.fire({
+        title: 'You are not logged in!',
+        text: 'Please log in to add items to your cart.',
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonText: 'Log In',
+        cancelButtonText: 'Browse',
+      }).then((result) => {
+        if (result.isConfirmed) {
+          navigate('/login');
+        }
+      });
+    } else {
+      try {
+        const response = await axios.post('http://localhost:5000/api/add-to-cart', {
+          userId: user._id,
+          productId: product._id,
+        });
+
+        Swal.fire({
+          title: 'Added to Cart!',
+          text: response.data.message,
+          icon: 'success',
+        });
+      } catch (error) {
+        console.error('Error adding to cart:', error);
+        Swal.fire({
+          title: 'Error',
+          text: 'There was a problem adding this item to your cart.',
+          icon: 'error',
+        });
+      }
+    }
   };
-
   return (
     <section className={styles.trendingSection}>
       <h2 className={styles.trendingTitle}>Trending Product</h2>
@@ -75,23 +84,41 @@ const TrendingProduct = () => {
         }}
       >
         {products.map((product) => (
-          <SwiperSlide key={product.id}>
-            <Link to={`/product/${product.id}`} className={styles.linkWrapper}>
+          <SwiperSlide key={product._id}>
+            <div className={styles.linkWrapper}>
               <div className={styles.productCard}>
-                <img src={product.image} alt={product.title} className={styles.productImage} />
-                <p className={styles.productTitle}>{product.title}</p>
+                <div className={styles.productImg}>
+                <img src={`http://localhost:5000/uploads/${product.productImg}`} alt="product"  className={styles.productImage} />
+                </div>
+                <div className={styles.textContent}>
+                <p className={styles.productTitle}>
+                  {product.name.length > 15
+                    ? `${product.name.substring(0, 15)}...`
+                    : product.name}
+                </p>
+                <p className={styles.productDescription}>
+                  {product.description && product.description.length > 30
+                    ? `${product.description.substring(0, 30)}...`
+                    : product.description}
+                </p>
                 <p className={styles.productPrice}>{` GH ${product.price}`}</p>
                 <div className={styles.buttonGroup}>
-                  <button className={styles.buyNowButton}>BUY NOW</button>
+                  <button
+                    onClick={() => navigate(`/product/${product._id}`)}
+                    className={styles.buyNowButton}
+                  >
+                    BUY NOW
+                  </button>
                   <button
                     className={styles.addToCartButton}
-                    onClick={(e) => handleAddToCart(e, product)}
+                    onClick={() => handleAddToCart(product)}
                   >
                     ADD TO CART
                   </button>
                 </div>
+                </div>
               </div>
-            </Link>
+            </div>
           </SwiperSlide>
         ))}
       </Swiper>

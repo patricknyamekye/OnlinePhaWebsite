@@ -16,7 +16,7 @@ const ProductAdvert = () => {
           <span className={styles.label}>FOR WOMEN</span>
           <h1>All Natural Promotes <br /> Focus and Memory</h1>
 
-          <Link to="/products">
+          <Link to="/product">
             <button>Shop Now</button>
           </Link>
         </div>

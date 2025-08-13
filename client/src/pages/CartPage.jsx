@@ -6,15 +6,10 @@ import NavbarComponent from "../components/NavbarComponents/NavbarComponents"
 
 const CartPage = () => {
   return (
-    <div>
+    <>
       <NavbarComponent/>
-      <br />
-      <br />
-      <br />
-      <br />
-      <br />
       <CartPageComponent />
-    </div>
+    </>
   );
 };
 

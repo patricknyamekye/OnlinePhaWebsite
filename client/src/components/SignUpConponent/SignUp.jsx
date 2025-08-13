@@ -2,25 +2,38 @@ import React, { useState } from 'react';
 import style from './SignUp.module.css';
 import pills from '../../assets/pills.png'; // adjust path as needed
 import axios from 'axios';
+import { useNavigate } from 'react-router-dom';
 
 
 const SignUp = () => {
+ const [formData, setFormData] = useState({
+      fullName: '',
+    email: '',
+    password: '',
+  });
 
+  const [error, setError] = useState(null);
+  const navigate = useNavigate();
 
-  const [firstname, setFirstName] = useState();
-  const [lastname, setLastName] = useState();
-  const [email, setEmail] = useState();
-  const [password, setPassword] = useState();
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setFormData({ ...formData, [name]: value });
+  };
 
-
-
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    axios.post ('http://localhost:5000/signUp', {firstname,lastname,email,password })
-    .then(result => console.log(result))
-    .catch(err=> console.log(err))
-  }
-
+    try {
+      const response = await axios.post('http://localhost:5000/api/signup', formData);
+      console.log(response.data);
+      // Save user info to localStorage (if needed)
+      // localStorage.setItem('user', JSON.stringify(response.data.user));
+      // Navigate to the home page
+      navigate('/login');
+    } catch (err) {
+      setError('Failed to sign up. Please try again.');
+      console.error(err);
+    }
+  };
 
   return (
     <div className={style.page}>
@@ -40,25 +53,13 @@ const SignUp = () => {
             <input
               required
               type="text"
-              name="firstname"
-           
-            onChange={(e) => setFirstName(e.target.value)}
+              name="fullName"
+              value={formData.fullName}
+              onChange={handleChange}
               className={style.input}
               placeholder=" "
             />
-            <span>Firstname</span>
-          </label>
-
-          <label>
-            <input
-              required
-              type="text"
-              name="lastname"
-             onChange={(e) => setLastName(e.target.value)}
-              className={style.input}
-              placeholder=" "
-            />
-            <span>Lastname</span>
+            <span>Full Name</span>
           </label>
         </div>
 
@@ -67,7 +68,8 @@ const SignUp = () => {
             required
             type="email"
             name="email"
-          onChange={(e) => setEmail(e.target.value)}
+            value={formData.email}
+            onChange={handleChange}
             className={style.input}
             placeholder=" "
           />
@@ -79,19 +81,20 @@ const SignUp = () => {
             required
             type="password"
             name="password"
-              onChange={(e) => setPassword(e.target.value)}
+            value={formData.password}
+            onChange={handleChange}
             className={style.input}
             placeholder=" "
           />
           <span>Password</span>
         </label>
 
-      
+        {/* Show error message if present */}
+        {error && <div className={style.error}>{error}</div>}
 
         <button type="submit" className={style.submit}>
           Submit
         </button>
-
         <p className={style.signin}>
           Already have an account? <a href="/login">Login</a>
         </p>

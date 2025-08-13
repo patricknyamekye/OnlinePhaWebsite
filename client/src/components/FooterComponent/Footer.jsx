@@ -40,7 +40,7 @@ const Footer = () => {
         </div>
       </div>
 
-<div className={Styles.nav}>
+{/* <div className={Styles.nav}>
   <ul className={Styles.linkList}>
     <li><Link to="/">Home</Link></li>
     <li><Link to="/product">Product</Link></li>
@@ -49,7 +49,7 @@ const Footer = () => {
     <li><Link to="/about">About Us</Link></li>
     <li><Link to="/login">Login</Link></li>
   </ul>
-</div>
+</div> */}
 
 
 
