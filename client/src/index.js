@@ -4,8 +4,7 @@ import ReactDOM from 'react-dom/client';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
 import './index.css';
-
-import { CartProvider } from './components/CartContext/CartContext'; // ✅ Correct path
+import { CartProvider } from './components/CartContext/CartContext';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
@@ -13,7 +12,6 @@ root.render(
     <CartProvider>
       <App />
     </CartProvider>
-    
   </React.StrictMode>
 );
 

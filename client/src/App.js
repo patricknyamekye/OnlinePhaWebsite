@@ -13,6 +13,7 @@ import AllNewsPages from "./pages/AllNewsPage";
 import CartPage from "./pages/CartPage";
 import CheckoutComponentPage from "./pages/CheckoutComponentPage";
 import Dashboard from "./pages/Dashboard";
+import WhatsAppFloat from "./WhatsAppFloat";
 
 function App() {
   return (
@@ -42,6 +43,7 @@ function App() {
 
           <Route path="/admin/dashboard" element={ <Dashboard /> } />
         </Routes>
+                <WhatsAppFloat />
       </Router>
     </>
   );

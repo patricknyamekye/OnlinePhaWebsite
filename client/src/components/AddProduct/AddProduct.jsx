@@ -24,30 +24,30 @@ const AddProduct = () => {
       });
       return;
     }
-      const response = await axios.post("http://localhost:5000/api/add-product", {name, price, description, productCategory, productImg, quantity} , {
-        headers: {
-          'Content-Type': 'multipart/form-data'
-        }
-      });
-      if (response.status === 200) {
-        Swal.fire({
-          title: "Good job!",
-          text: "Product Added Successfully!",
-          icon: "success"
-        });
-        setName("")
-        setPrice("")
-        setDescription("")
-        setProductCategory("")
-        setProductImg(null)
-        setQuantity("")
-      }else {
-        Swal.fire({
-          title: "Oops!",
-          text:  "Error Adding Product!",
-          icon: "error"
-        });
+    const response = await axios.post("http://localhost:5000/api/add-product", { name, price, description, productCategory, productImg, quantity }, {
+      headers: {
+        'Content-Type': 'multipart/form-data'
       }
+    });
+    if (response.status === 200) {
+      Swal.fire({
+        title: "Good job!",
+        text: "Product Added Successfully!",
+        icon: "success"
+      });
+      setName("")
+      setPrice("")
+      setDescription("")
+      setProductCategory("")
+      setProductImg(null)
+      setQuantity("")
+    } else {
+      Swal.fire({
+        title: "Oops!",
+        text: "Error Adding Product!",
+        icon: "error"
+      });
+    }
   };
 
   return (
@@ -107,11 +107,18 @@ const AddProduct = () => {
             className={styles.select}
           >
             <option value="" disabled>Select category</option>
-            <option value="cloths">Cloths</option>
-            <option value="beads">Beads</option>
-            <option value="carvers">Carvers</option>
+            <option value="prescription">Prescription Medicines</option>
+            <option value="otc">Over-the-Counter (OTC)</option>
+            <option value="supplements">Vitamins & Supplements</option>
+            <option value="personal-care">Personal Care</option>
+            <option value="first-aid">First Aid</option>
+            <option value="medical-equipment">Medical Equipment</option>
+            <option value="baby-care">Baby Care</option>
+            <option value="skin-care">Skin Care</option>
+            <option value="sexual-health">Sexual Health</option>
           </select>
         </div>
+
         <div className={styles.formGroup}>
           <label htmlFor="productImage" className={styles.label}>Product Image:</label>
           <input

@@ -50,18 +50,16 @@ const CheckoutComponent = () => {
     console.log('Payment successful!', reference);
 
     try {
+      // Add purchased products to user and create order
       const response = await axios.post('http://localhost:5000/api/checkout', {
         userId,
-        cart: cart, 
+        cart: cart,
         shippingInfo
       });
 
-      console.log(response)
-  
       if (response.status === 200) {
-        navigate(`/tracking/${userId}`); // Redirect to a success page
+        navigate(`/tracking/${userId}`); // Redirect to tracking page
       }
-
     } catch (error) {
       console.error('Error during checkout:', error);
     }
@@ -81,9 +79,8 @@ const CheckoutComponent = () => {
     currency: 'GHS', // Set currency to GHS (Ghanaian Cedis)
   };
 
-  const handleCheckout = async () => {
-    
-  };
+  // Check if all shipping fields are filled
+  const isShippingValid = Object.values(shippingInfo).every(val => val && val.trim() !== '');
 
   return (
     <div className={styles.checkoutContainer}>
@@ -153,8 +150,24 @@ const CheckoutComponent = () => {
           <ul className={styles.cartItems}>
             {cart && cart.map((item, index) => (
               <li key={index} className={styles.cartItem}>
-                <span>{item.name} x {item.quantity}</span>
-                <span>GHC {(item.price * item.quantity).toFixed(2)}</span>
+                {/* Show product image, name, description, price, and quantity */}
+                <div className={styles.productDetails}>
+                  {item.productImg && (
+                    <img
+                      src={`http://localhost:5000/uploads/${item.productImg}`}
+                      alt={item.name}
+                      className={styles.productImg}
+                      style={{ width: '60px', height: '60px', objectFit: 'cover', borderRadius: '6px', marginRight: '12px' }}
+                    />
+                  )}
+                  <div>
+                    <span className={styles.productName}>{item.name}</span>
+                    <div className={styles.productDesc}>{item.description}</div>
+                    <div className={styles.productPrice}>GHC {item.price}</div>
+                  </div>
+                </div>
+                <span>Qty: {item.quantity}</span>
+                <span>Subtotal: GHC {(item.price * item.quantity).toFixed(2)}</span>
               </li>
             ))}
           </ul>
@@ -163,7 +176,17 @@ const CheckoutComponent = () => {
             <span>GHC {totalPrice.toFixed(2)}</span>
           </div>
         </div>
-      <PaystackButton className={styles.paymentBtn} {...componentProps} />
+      {/* Disable PaystackButton if shipping info is incomplete */}
+      <PaystackButton
+        className={styles.paymentBtn}
+        {...componentProps}
+        disabled={!isShippingValid}
+      />
+      {!isShippingValid && (
+        <div style={{ color: 'red', marginTop: '10px', textAlign: 'center' }}>
+          Please fill in all shipping fields to proceed with payment.
+        </div>
+      )}
     </div>
   );
 };

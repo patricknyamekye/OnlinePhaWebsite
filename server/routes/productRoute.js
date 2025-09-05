@@ -21,6 +21,8 @@ router.put('/update-owner/:productId', productController.updateOwner);
 
 router.post('/add-to-cart', productController.addToCart);
 
+router.delete('/delete-from-cart', productController.deleteFromCart);
+
 router.post('/checkout', productController.purchaseProducts);
 
 router.get('/get-orders', productController.getOrder);

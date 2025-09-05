@@ -76,7 +76,7 @@ const TrendingProductDetails = () => {
     return <div>Loading...</div>;
   }
 
-  const handleCheckOut = (price, name) => {
+  const handleCheckOut = () => {
     if (userId === null) {
       Swal.fire({
         title: 'You are not logged in!',
@@ -90,8 +90,9 @@ const TrendingProductDetails = () => {
           navigate('/login');
         }
       });
-    }else {
-      navigate(`/checkout/${userId}`)
+    } else {
+      // Pass product details in state
+      navigate(`/checkout/${userId}`, { state: { cart: [{ ...product, quantity: 1 }] } });
     }
     
   }

@@ -31,7 +31,6 @@ const productController = {
           await product.save();
           res.status(200).json({ message: 'Product created successfully', product });
         } catch (error) {
-          console.error(error.message);
           res.status(500).json({ error: 'Server error' });
         }
       });
@@ -128,12 +127,8 @@ const productController = {
     try {
       const { productId } = req.params;
       const _id = productId;
-      console.log(req.body);
-      console.log(_id);
 
       const product = await Product.findById({ _id });
-
-      console.log(product);
 
       if (!product) {
         return res.status(404).json({ message: 'Product not found' });
@@ -160,7 +155,6 @@ const productController = {
       }
       res.status(200).json({ message: 'Product deleted successfully' });
     } catch (error) {
-      console.error(error);
       res.status(500).json({ error: 'Server error' });
     }
   },
@@ -186,7 +180,6 @@ const productController = {
 
       res.status(200).json({ message: 'Owner updated successfully', product });
     } catch (error) {
-      console.error(error);
       res.status(500).json({ error: 'Server error' });
     }
   },
@@ -194,8 +187,6 @@ const productController = {
   addToCart: async (req, res) => {
     try {
       const { userId, productId } = req.body;
-
-      console.log(req.body)
 
       // Find user and product
       const user = await User.findById(userId);
@@ -231,6 +222,34 @@ const productController = {
       res.status(500).json({ error: 'Server error' });
     }
   },
+
+  deleteFromCart : async (req, res) => {
+    try {
+      const { userId, productId } = req.body;
+
+      // Find user
+      const user = await User.findById(userId);
+      if (!user) {
+        return res.status(404).json({ error: 'User not found' });
+      }
+
+      // Remove product from cart
+      const initialCartLength = user.cart.length;
+      user.cart = user.cart.filter(item => item.productId.toString() !== productId);
+
+      if (user.cart.length === initialCartLength) {
+        return res.status(404).json({ error: 'Product not found in cart' });
+      }
+
+      await user.save();
+
+      res.status(200).json({ message: 'Product removed from cart', cart: user.cart });
+    } catch (error) {
+      console.error('Error deleting from cart:', error);
+      res.status(500).json({ error: 'Server error' });
+    }
+  }
+  ,
 
 
 purchaseProducts : async (req, res) => {
@@ -272,6 +291,7 @@ purchaseProducts : async (req, res) => {
     res.status(500).json({ message: error.message });
   }
 },
+
 getOrder : async (req, res) => {
   try {
     const orders = await Order.find()
@@ -302,7 +322,6 @@ updateOrder : async (req, res) => {
 
     res.status(200).json({ message: 'Order updated successfully', order });
   } catch (error) {
-    console.error(error);
     res.status(500).json({ error: 'Server error' });
   }
 }

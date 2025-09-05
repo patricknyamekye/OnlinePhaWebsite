@@ -83,7 +83,7 @@ const NavbarComponents = () => {
         </li>
 
         {/* Upload Icon and File Input */}
-        <li>
+        {/* <li>
           <button
             onClick={handleUploadClick}
             className={styles.uploadButton}
@@ -99,7 +99,7 @@ const NavbarComponents = () => {
             style={{ display: 'none' }}
             onChange={handleFileChange}
           />
-        </li>
+        </li> */}
 
         <li className={styles.menu} onClick={handleMenuClick}>
           <TfiMenu />

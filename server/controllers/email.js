@@ -19,7 +19,7 @@ const sendEmail = async (email, name, subject, message) => {
       from: `"${name}" <${email}>`,
       to: "aidoomusah18ab0614@gmail.com", 
       subject: subject,
-      text: `Hello Adwaso,\n\n${message}\n\nBest regards,\n${name}`,     };
+      text: `Hello WellCare,\n\n${message}\n\nBest regards,\n${name}`,     };
 
     // Send email
     const info = await transporter.sendMail(mailOptions);

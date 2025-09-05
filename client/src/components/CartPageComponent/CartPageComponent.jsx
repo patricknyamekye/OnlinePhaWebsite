@@ -3,14 +3,15 @@ import styles from './CartPageComponent.module.css';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import { useParams } from 'react-router-dom';
+import { FaTrash } from 'react-icons/fa'
 
 const CartPageComponent = () => {
     const navigate = useNavigate();
     const [cart, setCart] = useState([]);
+    const [showDeleteModal, setShowDeleteModal] = useState(false);
+    const [deleteIndex, setDeleteIndex] = useState(null);
     const user = localStorage.getItem('user')
     const {userId} = useParams()
-
-    // console.log("User:", userId)
 
     const handleCheckout = () => {
         navigate(`/checkout/${userId}`, { state: { cart } });
@@ -40,26 +41,50 @@ const CartPageComponent = () => {
                 console.error('Error decrementing quantity:', error);
             }
         } else {
-            // Optionally handle removing item from cart if quantity is 1 and user wants to decrement
-            handleRemove(index);
-        }
-    };
 
-    const handleRemove = async (index) => {
-        const item = cart[index];
-        
-        try {
-            await axios.post(`http://localhost:5000/api/${userId}/remove-from-cart`, { productId: item.productId });
-            const updatedCart = [...cart];
-            updatedCart.splice(index, 1);
-            setCart(updatedCart);
-        } catch (error) {
-            console.error('Error removing item from cart:', error);
+            deleteFromCart(index)
         }
     };
 
     const updateCartOnServer = async (updatedCart) => {
         await axios.post(`http://localhost:5000/api/user/${userId}/update-cart`, { cart: updatedCart });
+    };
+
+    const deleteFromCart = async (productId) => {
+        console.log("Product id", productId)
+        try {
+            await axios.delete("http://localhost:5000/api/delete-from-cart", {
+                data: { userId, productId }
+            });
+        } catch (error) {
+            console.log(error);
+        }
+    }
+
+    const handleDeleteClick = (index) => {
+        setDeleteIndex(index);
+        setShowDeleteModal(true);
+    };
+
+    const handleConfirmDelete = async () => {
+        if (deleteIndex !== null) {
+            const item = cart[deleteIndex];
+            try {
+                await deleteFromCart(item.productId);
+                const updatedCart = [...cart];
+                updatedCart.splice(deleteIndex, 1);
+                setCart(updatedCart);
+            } catch (error) {
+                console.error('Error removing item from cart:', error);
+            }
+            setShowDeleteModal(false);
+            setDeleteIndex(null);
+        }
+    };
+
+    const handleCancelDelete = () => {
+        setShowDeleteModal(false);
+        setDeleteIndex(null);
     };
 
     useEffect(() => {
@@ -83,6 +108,9 @@ const CartPageComponent = () => {
                     <ul className={styles.cartItems}>
                         {cart.map((item, index) => (
                             <li key={index} className={styles.cartItem}>
+                                <div className={styles.itemImg}>
+                                    <img src={`http://localhost:5000/uploads/${item.productImg}`} alt="product image" />
+                                </div>
                                 <span>{item.name}</span>
                                 <div className={styles.quantityControl}>
                                     <button onClick={() => handleDecrement(index, item.quantity)}>-</button>
@@ -90,6 +118,10 @@ const CartPageComponent = () => {
                                     <button onClick={() => handleIncrement(index, item.quantity)}>+</button>
                                 </div>
                                 <span>GHC {item.price * item.quantity}</span>
+                                <div className={styles.cartBtns}>
+                                    <button onClick={() => handleDeleteClick(index)} className={styles.delete}> <FaTrash /> </button>
+                                    <button onClick={() => {navigate(`/checkout/${userId}`, { state: { cart: [{ ...item }] } });} } className={styles.buyOne}>Buy</button>
+                                </div>
                             </li>
                         ))}
                     </ul>
@@ -101,6 +133,17 @@ const CartPageComponent = () => {
                     {cart.length > 0 && <button onClick={handleCheckout} className={styles.checkoutBtn}>Proceed to Checkout</button>}
                 </div>
             </div>
+
+            {/* Delete confirmation modal */}
+            {showDeleteModal && (
+                <div className={styles.confirmOverlay}>
+                    <div className={styles.confirmModal}>
+                        <p>Are you sure you want to remove this item from your cart?</p>
+                        <button onClick={handleConfirmDelete} className={styles.confirmBtn}>Proceed</button>
+                        <button onClick={handleCancelDelete} className={styles.cancelBtn}>Cancel</button>
+                    </div>
+                </div>
+            )}
         </div>
     );
 };
